@@ -42,7 +42,7 @@ public class Network {
             clientConnectionStatus = "idle";
             serverConnectionStatus = "idle";
             portID = 0;
-            maxNbPackets = 10;
+            maxNbPackets = 10; // test with 20 later
             inComingPacket = new Transactions[maxNbPackets];
             outGoingPacket = new Transactions[maxNbPackets];
             for(i = 0; i < maxNbPackets; i++)
@@ -357,6 +357,7 @@ public class Network {
      */
     public boolean send(Transactions inPacket)
     {
+        // Place inPacket in buffer
         inComingPacket[inputIndexClient].setAccountNumber(inPacket.getAccountNumber());
         inComingPacket[inputIndexClient].setOperationType(inPacket.getOperationType());
         inComingPacket[inputIndexClient].setTransactionAmount(inPacket.getTransactionAmount());
@@ -493,7 +494,7 @@ public class Network {
         {
             if (getClientIP().equals(IP))
             {
-                setClientConnectionStatus("connected");
+                setClientConnectionStatus("connected"); // client is connected
                 setPortID(0);
             }
             else

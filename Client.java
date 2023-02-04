@@ -33,22 +33,21 @@ public class Client {
         if (operation.equals("sending"))
         {
             System.out.println("\n Initializing client sending application ...");
-            numberOfTransactions = 0;
+            numberOfTransactions = 0; // initially zero because no transactions added
             maxNbTransactions = 100;
             transaction = new Transactions[maxNbTransactions];
-            objNetwork = new Network("client");
+            objNetwork = new Network("client"); // prints activating network components for client
             clientOperation = operation;
             System.out.println("\n Initializing the transactions ... ");
             readTransactions();
             System.out.println("\n Connecting client to network ...");
             String cip = objNetwork.getClientIP();
-            if (!(objNetwork.connect(cip)))
+            if(!(objNetwork.connect(cip))) // if not client, terminate
             {   System.out.println("\n Terminating client application, network unavailable");
                 System.exit(0);
             }
         }
-        else
-        if (operation.equals("receiving"))
+        else if(operation.equals("receiving"))
         {
             System.out.println("\n Initializing client receiving application ...");
             clientOperation = operation;
@@ -100,7 +99,7 @@ public class Client {
     }
 
     /**
-     * Reading of the transactions from an input file
+     * Reading of the transactions from an input file (transaction.txt)
      *
      * @return
      * @param
@@ -120,7 +119,7 @@ public class Client {
             System.out.println("or could not be opened.");
             System.exit(0);
         }
-        while (inputStream.hasNextLine( ))
+        while(inputStream.hasNextLine( ))
         {
             try
             {   transaction[i] = new Transactions();
