@@ -12,7 +12,7 @@
 public class Network {
 
     private static int maxNbPackets;                           /* Maximum number of simultaneous transactions handled by the network buffer */
-    private static int inputIndexClient, inputIndexServer, outputIndexServer, outputIndexClient;                   /* Network buffer indices for accessing the input buffer (inputIndexClient, outputIndexServer) and output buffer (inputIndexServer, outputIndexClient) */
+    private static int inputIndexClient, inputIndexServer, outputIndexClient, outputIndexServer;                   /* Network buffer indices for accessing the input buffer (inputIndexClient, outputIndexServer) and output buffer (inputIndexServer, outputIndexClient) */
     private static String clientIP;                            /* IP number of the client application*/
     private static String serverIP;                            /* IP number of the server application */
     private static int portID;                                 /* Port ID of the client application */
@@ -45,16 +45,17 @@ public class Network {
             maxNbPackets = 10;
             inComingPacket = new Transactions[maxNbPackets];
             outGoingPacket = new Transactions[maxNbPackets];
-            for (i=0; i < maxNbPackets; i++)
-            {   inComingPacket[i] = new Transactions();
+            for(i = 0; i < maxNbPackets; i++)
+            {
+                inComingPacket[i] = new Transactions();
                 outGoingPacket[i] = new Transactions();
             }
             inBufferStatus = "empty";
             outBufferStatus = "empty";
             inputIndexClient = 0;
             inputIndexServer = 0;
-            outputIndexServer = 0;
             outputIndexClient = 0;
+            outputIndexServer = 0;
             networkStatus = "active";
         }
         else /* Activate network components for client or server */
@@ -366,10 +367,11 @@ public class Network {
         System.out.println("\n DEBUG : Network.send() - index inputIndexClient " + inputIndexClient);
         System.out.println("\n DEBUG : Network.send() - account number " + inComingPacket[inputIndexClient].getAccountNumber());
 
-
-        setinputIndexClient(((getinputIndexClient( ) + 1) % getMaxNbPackets ()));	/* Increment the input buffer index  for the client */
+        // circular queue
+        setinputIndexClient(((getinputIndexClient() + 1) % getMaxNbPackets()));	/* Increment the input buffer index for the client */
         /* Check if input buffer is full */
-        if (getinputIndexClient() == getoutputIndexServer())
+        // -> TO DO: Find out what is going on here!!!??!?!??!
+        if(getinputIndexClient() == getoutputIndexServer())
         {
             setInBufferStatus("full");
 
@@ -400,7 +402,7 @@ public class Network {
 
         setoutputIndexClient(((getoutputIndexClient( ) + 1) % getMaxNbPackets( ))); /* Increment the output buffer index for the client */
         /* Check if output buffer is empty */
-        if ( getoutputIndexClient( ) == getinputIndexServer( ))
+        if(getoutputIndexClient() == getinputIndexServer())
         {
             setOutBufferStatus("empty");
 
@@ -433,7 +435,7 @@ public class Network {
 
         setinputIndexServer(((getinputIndexServer() + 1) % getMaxNbPackets())); /* Increment the output buffer index for the server */
         /* Check if output buffer is full */
-        if ( getinputIndexServer( ) == getoutputIndexClient( ))
+        if(getinputIndexServer() == getoutputIndexClient())
         {
             setOutBufferStatus("full");
 
@@ -466,7 +468,7 @@ public class Network {
 
         setoutputIndexServer(((getoutputIndexServer() + 1) % getMaxNbPackets()));	/* Increment the input buffer index for the server */
         /* Check if input buffer is empty */
-        if ( getoutputIndexServer( ) == getinputIndexClient( ))
+        if(getoutputIndexServer() == getinputIndexClient())
         {
             setInBufferStatus("empty");
 
@@ -497,7 +499,7 @@ public class Network {
             else
             if (getServerIP().equals(IP))
             {
-                setServerConnectionStatus("connected");
+                setServerConnectionStatus("connected");  // server is connected
             }
             return true;
         }

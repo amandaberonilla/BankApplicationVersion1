@@ -42,7 +42,7 @@ public class Server {
         System.out.println("\n Inializing the Accounts database ...");
         initializeAccounts( );
         System.out.println("\n Connecting server to network ...");
-        if (!(objNetwork.connect(objNetwork.getServerIP())))
+        if (!(objNetwork.connect(objNetwork.getServerIP()))) // if not server, terminate
         {
             System.out.println("\n Terminating server application, network unavailable");
             System.exit(0);
