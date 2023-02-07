@@ -186,7 +186,8 @@ public class Server {
      * @param trans
      */
     public boolean processTransactions(Transactions trans)
-    {   int accIndex;             	/* Index position of account to update */
+    {
+        int accIndex;           /* Index position of account to update */
         double newBalance; 		/* Updated account balance */
 
         /* Process the accounts until the client disconnects */
@@ -307,12 +308,21 @@ public class Server {
      * @param
      */
     public void run()
-    {   Transactions trans = new Transactions();
+    {
+        Transactions trans = new Transactions();
         long serverStartTime, serverEndTime;
 
         System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
 
         /* Implement the code for the run method */
+        // In case the input and output network buffers are full or empty each client or
+        // server thread must yield the cpu using the Java method Thread.yield().
+        // Initialize serverStartTime
+        serverStartTime = System.System.currentTimeMillis();
+        // Call method to process trans
+        processTransactions(trans);
+        // Initialize serverEndTime
+        serverEndTime = System.currentTimeMillis();
 
         System.out.println("\n Terminating server thread - " + " Running time " + (serverEndTime - serverStartTime) + " milliseconds");
 

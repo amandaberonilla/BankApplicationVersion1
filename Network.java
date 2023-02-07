@@ -9,7 +9,7 @@
  *
  * @author Kerly Titus
  */
-public class Network {
+public class Network extends Thread {
 
     private static int maxNbPackets;                           /* Maximum number of simultaneous transactions handled by the network buffer */
     private static int inputIndexClient, inputIndexServer, outputIndexClient, outputIndexServer;                   /* Network buffer indices for accessing the input buffer (inputIndexClient, outputIndexServer) and output buffer (inputIndexServer, outputIndexClient) */
@@ -560,6 +560,16 @@ public class Network {
         while (true)
         {
             /* Implement here the code for the run method ... */
+            // The network thread executes an infinite loop that ends when both client and server
+            // threads have disconnected. In case the client or sever threads are still connected
+            // the network thread must continuously yield the cpu.
+            if(clientConnectionStatus.equals("disconnected") && serverConnectionStatus.equals("disconnected")) {
+                System.out.println("Terminating network thread - Client disconnected Server disconnected");
+                return;
+            }
+            else {
+                Thread.yield();
+            }
         }
     }
 }
