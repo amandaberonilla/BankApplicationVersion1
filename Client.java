@@ -229,11 +229,11 @@ public class Client extends Thread {
         }
         else {
             // Initialize receiveClientStartTime
-            receiveClientStartTime = System.currentTimeMiilis();
+            receiveClientStartTime = System.currentTimeMillis();
             // Call method to receive transact
             receiveTransactions(transact);
             // Initialize receiveClientEndTime
-            receiveClientEndTime = System.currentTimeMiilis();
+            receiveClientEndTime = System.currentTimeMillis();
         }
     }
 }
