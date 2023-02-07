@@ -213,5 +213,27 @@ public class Client extends Thread {
         long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
 
         /* Implement here the code for the run method ... */
+        // In case the input and output network buffers are full or empty each client or
+        // server thread must yield the cpu using the Java method Thread.yield().
+        if(objNetwork.getInBufferStatus().equals("full") || objNetwork.getOutBufferStatus().equals("empty")) {
+            Thread.yield();
+        }
+
+        if(this.clientOperation.equals("sending")) {
+            // Initialize sendClientStartTime
+            sendClientStartTime = System.currentTimeMillis();
+            // Call method to send all transactions
+            sendTransactions();
+            // Initialize sendClientEndTime
+            sendClientEndTime = System.currentTimeMillis();
+        }
+        else {
+            // Initialize receiveClientStartTime
+            receiveClientStartTime = System.currentTimeMiilis();
+            // Call method to receive transact
+            receiveTransactions(transact);
+            // Initialize receiveClientEndTime
+            receiveClientEndTime = System.currentTimeMiilis();
+        }
     }
 }

@@ -15,7 +15,7 @@ import java.util.InputMismatchException;
  * @author Kerly Titus
  */
 
-public class Server {
+public class Server extends Thread {
 
     int numberOfTransactions;         /* Number of transactions handled by the server */
     int numberOfAccounts;             /* Number of accounts stored in the server */
@@ -312,6 +312,9 @@ public class Server {
         Transactions trans = new Transactions();
         long serverStartTime, serverEndTime;
 
+        if(objNetwork.getInBufferStatus().equals("full") || objNetwork.getOutBufferStatus().equals("empty")) {
+            Thread.yield();
+        }
         System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
 
         /* Implement the code for the run method */
