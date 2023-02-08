@@ -371,7 +371,6 @@ public class Network extends Thread {
         // circular queue
         setinputIndexClient(((getinputIndexClient() + 1) % getMaxNbPackets()));	/* Increment the input buffer index for the client */
         /* Check if input buffer is full */
-        // -> TO DO: Find out what is going on here!!!??!?!??!
         if(getinputIndexClient() == getoutputIndexServer())
         {
             setInBufferStatus("full");

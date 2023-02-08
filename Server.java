@@ -193,7 +193,10 @@ public class Server extends Thread {
         /* Process the accounts until the client disconnects */
         while ((!objNetwork.getClientConnectionStatus().equals("disconnected")))
         {
-            /* while( (objNetwork.getInBufferStatus().equals("empty"))); */  /* Alternatively, busy-wait until the network input buffer is available */
+            while( (objNetwork.getInBufferStatus().equals("empty"))) {
+                /* Alternatively, busy-wait until the network input buffer is available */
+                Thread.yield();
+            }
 
             if (!objNetwork.getInBufferStatus().equals("empty"))
             {
@@ -232,7 +235,10 @@ public class Server extends Thread {
                             System.out.println("\n DEBUG : Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber());
                         }
 
-                // while( (objNetwork.getOutBufferStatus().equals("full"))); /* Alternatively,  busy-wait until the network output buffer is available */
+                while( (objNetwork.getOutBufferStatus().equals("full"))) {
+                    /* Alternatively,  busy-wait until the network output buffer is available */
+                    Thread.yield();
+                }
 
                 System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber());
 
@@ -321,7 +327,7 @@ public class Server extends Thread {
         // In case the input and output network buffers are full or empty each client or
         // server thread must yield the cpu using the Java method Thread.yield().
         // Initialize serverStartTime
-        serverStartTime = System.System.currentTimeMillis();
+        serverStartTime = System.currentTimeMillis();
         // Call method to process trans
         processTransactions(trans);
         // Initialize serverEndTime
