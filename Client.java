@@ -156,7 +156,10 @@ public class Client extends Thread {
 
         while (i < getNumberOfTransactions())
         {
-            // while( objNetwork.getInBufferStatus().equals("full") );     /* Alternatively, busy-wait until the network input buffer is available */
+            while( objNetwork.getInBufferStatus().equals("full") ){
+                /* Alternatively, busy-wait until the network input buffer is available */
+                Thread.yield();
+            }
 
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
 
@@ -180,7 +183,9 @@ public class Client extends Thread {
 
         while (i < getNumberOfTransactions())
         {
-            // while( objNetwork.getOutBufferStatus().equals("empty"));  	/* Alternatively, busy-wait until the network output buffer is available */
+            while( objNetwork.getOutBufferStatus().equals("empty")){
+                Thread.yield();
+            };  	/* Alternatively, busy-wait until the network output buffer is available */
 
             objNetwork.receive(transact);                               	/* Receive updated transaction from the network buffer */
 
@@ -215,9 +220,9 @@ public class Client extends Thread {
         /* Implement here the code for the run method ... */
         // In case the input and output network buffers are full or empty each client or
         // server thread must yield the cpu using the Java method Thread.yield().
-        if(objNetwork.getInBufferStatus().equals("full") || objNetwork.getOutBufferStatus().equals("empty")) {
+        /*if(objNetwork.getInBufferStatus().equals("full") || objNetwork.getOutBufferStatus().equals("empty")) {
             Thread.yield();
-        }
+        }*/
 
         if(this.clientOperation.equals("sending")) {
             // Initialize sendClientStartTime

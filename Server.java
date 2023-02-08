@@ -318,9 +318,9 @@ public class Server extends Thread {
         Transactions trans = new Transactions();
         long serverStartTime, serverEndTime;
 
-        if(objNetwork.getInBufferStatus().equals("full") || objNetwork.getOutBufferStatus().equals("empty")) {
+        /*if(objNetwork.getInBufferStatus().equals("full") || objNetwork.getOutBufferStatus().equals("empty")) {
             Thread.yield();
-        }
+        }*/
         System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
 
         /* Implement the code for the run method */
