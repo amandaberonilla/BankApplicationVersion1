@@ -168,6 +168,8 @@ public class Client extends Thread {
             objNetwork.send(transaction[i]);                            /* Transmit current transaction */
             i++;
         }
+        //objNetwork.disconnect(objNetwork.getClientIP());
+
 
     }
 
@@ -194,6 +196,7 @@ public class Client extends Thread {
             System.out.println(transact);                               	/* Display updated transaction */
             i++;
         }
+        //objNetwork.disconnect(objNetwork.getClientIP());
     }
 
     /**
@@ -231,6 +234,7 @@ public class Client extends Thread {
             sendTransactions();
             // Initialize sendClientEndTime
             sendClientEndTime = System.currentTimeMillis();
+            System.out.println("Terminating client " + clientOperation + " thread - Running Time " + (sendClientEndTime-sendClientStartTime));
         }
         else {
             // Initialize receiveClientStartTime
@@ -239,6 +243,9 @@ public class Client extends Thread {
             receiveTransactions(transact);
             // Initialize receiveClientEndTime
             receiveClientEndTime = System.currentTimeMillis();
+            System.out.println("Terminating client " + clientOperation + " thread - Running Time " + (receiveClientEndTime-receiveClientStartTime));
         }
+
+        objNetwork.disconnect(objNetwork.getClientIP());
     }
 }
