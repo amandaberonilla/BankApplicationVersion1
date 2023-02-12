@@ -1,9 +1,12 @@
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+// -----------------------------------------------------
+// COMP 346 - Winter 2023
+// Suha Abubakr [40120785 - Section NN]
+// Amanda Beronilla [ 40228871- Section WW]
+// Assignment # 1
+// Due Date: February 13, 2023 at 11:59 PM
+// -----------------------------------------------------
+
 
 /** Accounts class
  *

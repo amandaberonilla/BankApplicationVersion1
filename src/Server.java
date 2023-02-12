@@ -1,4 +1,12 @@
 
+// -----------------------------------------------------
+// COMP 346 - Winter 2023
+// Suha Abubakr [40120785 - Section NN]
+// Amanda Beronilla [ 40228871- Section WW]
+// Assignment # 1
+// Due Date: February 13, 2023 at 11:59 PM
+// -----------------------------------------------------
+
 import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -155,7 +163,7 @@ public class Server extends Thread {
         }
         setNumberOfAccounts(i);			/* Record the number of accounts processed */
 
-        System.out.println("\n DEBUG : Server.initializeAccounts() " + getNumberOfAccounts() + " accounts processed");
+        //System.out.println("\n DEBUG : Server.initializeAccounts() " + getNumberOfAccounts() + " accounts processed");
 
         inputStream.close( );
     }
@@ -200,7 +208,7 @@ public class Server extends Thread {
 
             if (!objNetwork.getInBufferStatus().equals("empty"))
             {
-                System.out.println("\n DEBUG : Server.processTransactions() - transferring in account " + trans.getAccountNumber());
+                //System.out.println("\n DEBUG : Server.processTransactions() - transferring in account " + trans.getAccountNumber());
 
                 objNetwork.transferIn(trans);                              /* Transfer a transaction from the network input buffer */
 
@@ -212,7 +220,7 @@ public class Server extends Thread {
                     trans.setTransactionBalance(newBalance);
                     trans.setTransactionStatus("done");
 
-                    System.out.println("\n DEBUG : Server.processTransactions() - Deposit of " + trans.getTransactionAmount() + " in account " + trans.getAccountNumber());
+                    //System.out.println("\n DEBUG : Server.processTransactions() - Deposit of " + trans.getTransactionAmount() + " in account " + trans.getAccountNumber());
                 }
                 else
                     /* Process withdraw operation */
@@ -222,7 +230,7 @@ public class Server extends Thread {
                         trans.setTransactionBalance(newBalance);
                         trans.setTransactionStatus("done");
 
-                        System.out.println("\n DEBUG : Server.processTransactions() - Withdrawal of " + trans.getTransactionAmount() + " from account " + trans.getAccountNumber());
+                        //System.out.println("\n DEBUG : Server.processTransactions() - Withdrawal of " + trans.getTransactionAmount() + " from account " + trans.getAccountNumber());
                     }
                     else
                         /* Process query operation */
@@ -232,7 +240,7 @@ public class Server extends Thread {
                             trans.setTransactionBalance(newBalance);
                             trans.setTransactionStatus("done");
 
-                            System.out.println("\n DEBUG : Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber());
+                            //System.out.println("\n DEBUG : Server.processTransactions() - Obtaining balance from account" + trans.getAccountNumber());
                         }
 
                 while( (objNetwork.getOutBufferStatus().equals("full"))) {
@@ -240,13 +248,13 @@ public class Server extends Thread {
                     Thread.yield();
                 }
 
-                System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber());
+                //System.out.println("\n DEBUG : Server.processTransactions() - transferring out account " + trans.getAccountNumber());
 
                 objNetwork.transferOut(trans);                            		/* Transfer a completed transaction from the server to the network output buffer */
                 setNumberOfTransactions( (getNumberOfTransactions() +  1) ); 	/* Count the number of transactions processed */
             }
         }
-        System.out.println("\n DEBUG : Server.processTransactions() - " + getNumberOfTransactions() + " accounts updated");
+        //System.out.println("\n DEBUG : Server.processTransactions() - " + getNumberOfTransactions() + " accounts updated");
         objNetwork.disconnect(objNetwork.getServerIP());
 
         return true;
@@ -322,7 +330,7 @@ public class Server extends Thread {
         /*if(objNetwork.getInBufferStatus().equals("full") || objNetwork.getOutBufferStatus().equals("empty")) {
             Thread.yield();
         }*/
-        System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
+        //System.out.println("\n DEBUG : Server.run() - starting server thread " + objNetwork.getServerConnectionStatus());
 
         /* Implement the code for the run method */
         // In case the input and output network buffers are full or empty each client or

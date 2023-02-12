@@ -1,4 +1,12 @@
 
+// -----------------------------------------------------
+// COMP 346 - Winter 2023
+// Suha Abubakr [40120785 - Section NN]
+// Amanda Beronilla [ 40228871- Section WW]
+// Assignment # 1
+// Due Date: February 13, 2023 at 11:59 PM
+// -----------------------------------------------------
+
 import java.util.Scanner;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -138,7 +146,7 @@ public class Client extends Thread {
         }
         setNumberOfTransactions(i);		/* Record the number of transactions processed */
 
-        System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
+        //System.out.println("\n DEBUG : Client.readTransactions() - " + getNumberOfTransactions() + " transactions processed");
 
         inputStream.close( );
 
@@ -163,7 +171,7 @@ public class Client extends Thread {
 
             transaction[i].setTransactionStatus("sent");   /* Set current transaction status */
 
-            System.out.println("\n DEBUG : Client.sendTransactions() - sending transaction on account " + transaction[i].getAccountNumber());
+            //System.out.println("\n DEBUG : Client.sendTransactions() - sending transaction on account " + transaction[i].getAccountNumber());
 
             objNetwork.send(transaction[i]);                            /* Transmit current transaction */
             i++;
@@ -191,7 +199,7 @@ public class Client extends Thread {
 
             objNetwork.receive(transact);                               	/* Receive updated transaction from the network buffer */
 
-            System.out.println("\n DEBUG : Client.receiveTransactions() - receiving updated transaction on account " + transact.getAccountNumber());
+            //System.out.println("\n DEBUG : Client.receiveTransactions() - receiving updated transaction on account " + transact.getAccountNumber());
 
             System.out.println(transact);                               	/* Display updated transaction */
             i++;
@@ -221,11 +229,6 @@ public class Client extends Thread {
         long sendClientStartTime, sendClientEndTime, receiveClientStartTime, receiveClientEndTime;
 
         /* Implement here the code for the run method ... */
-        // In case the input and output network buffers are full or empty each client or
-        // server thread must yield the cpu using the Java method Thread.yield().
-        /*if(objNetwork.getInBufferStatus().equals("full") || objNetwork.getOutBufferStatus().equals("empty")) {
-            Thread.yield();
-        }*/
 
         if(this.clientOperation.equals("sending")) {
             // Initialize sendClientStartTime
@@ -234,7 +237,7 @@ public class Client extends Thread {
             sendTransactions();
             // Initialize sendClientEndTime
             sendClientEndTime = System.currentTimeMillis();
-            System.out.println("Terminating client " + clientOperation + " thread - Running Time " + (sendClientEndTime-sendClientStartTime));
+            System.out.println("\n Terminating client " + clientOperation + " thread - Running Time " + (sendClientEndTime-sendClientStartTime) + " milliseconds");
         }
         else {
             // Initialize receiveClientStartTime
@@ -243,7 +246,7 @@ public class Client extends Thread {
             receiveTransactions(transact);
             // Initialize receiveClientEndTime
             receiveClientEndTime = System.currentTimeMillis();
-            System.out.println("Terminating client " + clientOperation + " thread - Running Time " + (receiveClientEndTime-receiveClientStartTime));
+            System.out.println("\n Terminating client " + clientOperation + " thread - Running Time " + (receiveClientEndTime-receiveClientStartTime) + " milliseconds" );
         }
 
         objNetwork.disconnect(objNetwork.getClientIP());
